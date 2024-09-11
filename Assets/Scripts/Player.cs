@@ -35,6 +35,17 @@ public class Player : MonoBehaviour
                 Debug.Log("Enemy Entered, GameState: Stop");
             }
         }
+        if (collision.transform.CompareTag("EventLine"))
+        {
+            if (transform.position.x < 0)
+            {
+                Debug.Log("왼쪽 선택");
+            }
+            else
+            {
+                Debug.Log("오른쪽 선택");
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

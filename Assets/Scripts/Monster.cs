@@ -15,13 +15,11 @@ public class Monster : MonoBehaviour
 
     private void Awake()
     {
-        Game.Battle.monsters.Add(this);
     }
     private void Update()
     {
         if (transform.position.y < -8f)
         {
-            Game.Battle.monsters.Remove(this);
             Disappear();
         }
         AttackDelay -= Time.deltaTime;
@@ -52,12 +50,14 @@ public class Monster : MonoBehaviour
 
     void Die()
     {
+        Game.Battle.monsters.Remove(this);
         gameObject.SetActive(false);
         Destroy(gameObject, 0.05f);
     }
 
     public void Disappear()
     {
+        Game.Battle.monsters.Remove(this);
         gameObject.SetActive(false);
         Destroy(gameObject, 0.05f);
     }
