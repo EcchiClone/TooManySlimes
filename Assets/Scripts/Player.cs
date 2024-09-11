@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,13 +13,15 @@ public class Player : MonoBehaviour
     public float health = 1000f;
     public float attackPower = 20f;
     public bool isInCombat = false;
-    public Slider HpSlider;
+    public Slider hpSlider;
+    public TextMeshProUGUI hpText;
 
     private float playerColliderY;
 
     private void Start()
     {
         playerColliderY = GetComponent<CapsuleCollider2D>().size.y;
+        hpText.text = health.ToString("F0");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -81,9 +84,10 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        HpSlider.gameObject.SetActive(true);
+        hpSlider.gameObject.SetActive(true);
         health -= damage;
-        HpSlider.value = health / maxHealth;
+        hpSlider.value = health / maxHealth;
+        hpText.text = health.ToString("F0");
         if (health <= 0)
         {
             Die();
