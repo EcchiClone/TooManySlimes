@@ -57,7 +57,7 @@ public class LobbySceneManager : MonoBehaviour
     }
     private void DisplayUpdate()
     {
-        HpText.text = (Game.Data.playerStat.HealthBase + Game.Data.playerStat.HealthPlus).ToString();
+        HpText.text = (Game.Data.playerStat.HpBase + Game.Data.playerStat.HpPlus).ToString();
         DamageText.text = (Game.Data.playerStat.DamageBase + Game.Data.playerStat.DamagePlus).ToString();
     }
 }

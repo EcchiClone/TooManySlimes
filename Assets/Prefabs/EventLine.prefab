@@ -662,7 +662,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -746,7 +746,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1004,6 +1004,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3907944162062451465}
   - component: {fileID: 5696004060594051059}
+  - component: {fileID: 8440194109507667864}
   m_Layer: 0
   m_Name: EventTriggerCollider
   m_TagString: EventLine
@@ -1071,6 +1072,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.613239, y: 0.29963273}
   m_EdgeRadius: 0
+--- !u!114 &8440194109507667864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931267869468482131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e27c19816182e7408abc83c793cd975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EventLine: {fileID: 1299986491728473101}
 --- !u!1 &5979655790875110239
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,9 +1166,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd9348119bab5849badf5f3e4fe566d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventElements: 
   itemSprites:
   - {fileID: 5758224328766949331}
   - {fileID: 5747530658381386094}
+  weaponSprites: []
   itemTexts:
   - {fileID: 8536266009019882803}
   - {fileID: 7695055910483869523}

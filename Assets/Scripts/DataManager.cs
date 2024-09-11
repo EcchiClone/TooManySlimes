@@ -35,11 +35,11 @@ public class DataManager : MonoBehaviour
     {
         playerStat = new PlayerStat()
         {
-            HealthBase = 100,
+            HpBase = 100,
             DamageBase = 50,
-            HealthPlus = 0,
+            HpPlus = 0,
             DamagePlus = 0,
-            HealthPerc = 100,
+            HpPerc = 100,
             DamagePerc = 100
         };
         Debug.Log("PlayerStat 초기화");
@@ -61,16 +61,16 @@ public class DataManager : MonoBehaviour
         switch (op)
         {
             case (PlayerStatOperator.HealthPlus):
-                playerStat.HealthPlus += value;
+                playerStat.HpPlus += value;
                 break;
             case (PlayerStatOperator.HealthMinus):
-                playerStat.HealthPlus -= value;
+                playerStat.HpPlus -= value;
                 break;
             case (PlayerStatOperator.HealthPercPlus):
-                playerStat.HealthPerc += value;
+                playerStat.HpPerc += value;
                 break;
             case (PlayerStatOperator.HealthPercMinus):
-                playerStat.HealthPerc -= value;
+                playerStat.HpPerc -= value;
                 break;
             case (PlayerStatOperator.DamagePlus):
                 playerStat.DamagePlus += value;
@@ -103,11 +103,11 @@ public enum PlayerStatOperator
 [Serializable]
 public class PlayerStat
 {
-    public int HealthBase;
+    public int HpBase;
     public int DamageBase;
-    public int HealthPlus;
+    public int HpPlus;
     public int DamagePlus;
-    public int HealthPerc;
+    public int HpPerc;
     public int DamagePerc;
 }
 [Serializable]
@@ -166,4 +166,12 @@ public enum WeaponType
     Gear,
     Bird,
     Laser,
+}
+public enum EventLineType
+{
+    BattleItem,
+    Shop,
+    Event,
+    Potion,
+    Gem,
 }

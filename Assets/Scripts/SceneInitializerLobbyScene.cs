@@ -32,6 +32,6 @@ public class SceneInitializerLobbyScene : MonoBehaviour
     }
     private void OnDisable()
     {
-        Game.Battle.CancelUpdate();
+
     }
 }

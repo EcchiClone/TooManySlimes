@@ -9,25 +9,32 @@ public class Player : MonoBehaviour
 {
     private HashSet<Collider2D> enemieCollisions = new HashSet<Collider2D>();
 
-    public float maxHealth;
-    public float health;
-    public float damage;
+    public int maxHp;
+    public int hp;
+    public int damage;
+
+    public int gem;
+
+    public Dictionary<WeaponType, Dictionary<ElementType, int>> weapons;
+
     public bool isInCombat = false;
     public Slider hpSlider;
     public TextMeshProUGUI hpText;
+    public TextMeshProUGUI gemText;
 
     private float playerColliderY;
 
     private void Start()
     {
-        maxHealth = (int)((Game.Data.playerStat.HealthBase + Game.Data.playerStat.HealthPlus) * ((float)Game.Data.playerStat.HealthPerc / 100f));
+        maxHp = (int)((Game.Data.playerStat.HpBase + Game.Data.playerStat.HpPlus) * ((float)Game.Data.playerStat.HpPerc / 100f));
         damage = (int)((Game.Data.playerStat.DamageBase + Game.Data.playerStat.DamagePlus) * ((float)Game.Data.playerStat.DamagePerc / 100f));
 
-        health = maxHealth;
+        hp = maxHp;
+        gem = 0;
 
         playerColliderY = GetComponent<CapsuleCollider2D>().size.y;
 
-        hpText.text = health.ToString("F0");
+        UpdateDisplay();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -87,13 +94,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         hpSlider.gameObject.SetActive(true);
-        health -= damage;
-        hpSlider.value = health / maxHealth;
-        hpText.text = health.ToString("F0");
-        if (health <= 0)
+        hp -= damage;
+        UpdateDisplay();
+        if (hp <= 0)
         {
             Die();
         }
@@ -104,5 +110,31 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void Heal(int value)
+    {
+        hp = Mathf.Min(hp + value, maxHp);
+        UpdateDisplay();
+    }
+    public void AddGem(int value)
+    {
+        gem += value;
+        UpdateDisplay();
+    }
+    public void RemoveGem(int value)
+    {
+        gem -= value;
+        UpdateDisplay();
+    }
+    public void GetWeapon(WeaponType weapon, ElementType element)
+    {
+        weapons[weapon][element] += 1;
+    }
 
+    void UpdateDisplay()
+    {
+        hpSlider.value = (float)hp / (float)maxHp;
+        hpText.text = hp.ToString("F0");
+        //gemText.text = gem.ToString(); // 젬 표시
+
+    }
 }

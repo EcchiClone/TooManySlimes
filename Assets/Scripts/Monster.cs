@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
-    public float maxHealth = 50f;
-    private float health = 50f;
-    public float attackPower = 10f;
+    public int maxHp = 50;
+    private int hp = 50;
+    public int damage = 10;
     public Slider HpSlider;
-    private float lerpedHealth;
+    private float lerpedHp;
     private float lerpSpeed = 8f;
     public float AttackDelay;
 
@@ -20,8 +20,8 @@ public class Monster : MonoBehaviour
     }
     private void Start()
     {
-        health = maxHealth;
-        lerpedHealth = health;
+        hp = maxHp;
+        lerpedHp = hp;
     }
     private void Update()
     {
@@ -30,8 +30,8 @@ public class Monster : MonoBehaviour
             Disappear();
         }
 
-        lerpedHealth = Mathf.Lerp(lerpedHealth, health, lerpSpeed * Time.deltaTime);
-        HpSlider.value = lerpedHealth / maxHealth;
+        lerpedHp = Mathf.Lerp(lerpedHp, hp, lerpSpeed * Time.deltaTime);
+        HpSlider.value = lerpedHp / maxHp;
 
         AttackDelay -= Time.deltaTime;
     }
@@ -42,18 +42,18 @@ public class Monster : MonoBehaviour
         {
             if (Game.Battle.player != null)
             {
-                Game.Battle.player.TakeDamage(attackPower);
+                Game.Battle.player.TakeDamage(damage);
             }
             AttackDelay = 0.5f;
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         HpSlider.gameObject.SetActive(true);
-        health -= damage;
-        HpSlider.value = lerpedHealth / maxHealth;
-        if (health <= 0)
+        hp -= damage;
+        HpSlider.value = lerpedHp / maxHp;
+        if (hp <= 0)
         {
             Die();
         }
