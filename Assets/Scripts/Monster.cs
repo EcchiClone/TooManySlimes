@@ -1,0 +1,64 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Monster : MonoBehaviour
+{
+    public float maxHealth = 50f;
+    public float health = 50f;
+    public float attackPower = 10f;
+    public Slider HpSlider;
+    public float AttackDelay;
+
+    private void Awake()
+    {
+        Game.Battle.monsters.Add(this);
+    }
+    private void Update()
+    {
+        if (transform.position.y < -8f)
+        {
+            Game.Battle.monsters.Remove(this);
+            Disappear();
+        }
+        AttackDelay -= Time.deltaTime;
+    }
+
+    public void PerformAttack()
+    {
+        if(AttackDelay <= 0)
+        {
+            if (Game.Battle.player != null)
+            {
+                Game.Battle.player.TakeDamage(attackPower);
+            }
+            AttackDelay = 0.5f;
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        HpSlider.gameObject.SetActive(true);
+        health -= damage;
+        HpSlider.value = health / maxHealth;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        gameObject.SetActive(false);
+        Destroy(gameObject, 0.05f);
+    }
+
+    public void Disappear()
+    {
+        gameObject.SetActive(false);
+        Destroy(gameObject, 0.05f);
+    }
+}
