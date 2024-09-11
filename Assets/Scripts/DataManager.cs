@@ -1,20 +1,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.IO;
+using System;
 
 public class DataManager : MonoBehaviour
 {
     public PlayerStat playerStat;
     public MonsterStat slimeStat;
 
-    private void Start()
+    public void InitSetting()
     {
         InitPlayerStat();
     }
 
     private void InitPlayerStat()
     {
-        playerStat = new PlayerStat();
+        string path = Path.Combine(Application.persistentDataPath, "playerStat.json");
+
+        // 파일 존재 여부
+        if (File.Exists(path))
+        {
+            try
+            {
+                string json = File.ReadAllText(path);
+                playerStat = JsonConvert.DeserializeObject<PlayerStat>(json);
+                Debug.Log("PlayerStat 로드");
+            }
+            catch { InitNewPlayer(); }
+        }
+        else InitNewPlayer();
+    }
+    private void InitNewPlayer()
+    {
+        playerStat = new PlayerStat()
+        {
+            HealthBase = 100,
+            DamageBase = 50,
+            HealthPlus = 0,
+            DamagePlus = 0,
+            HealthPerc = 100,
+            DamagePerc = 100
+        };
+        Debug.Log("PlayerStat 초기화");
+        SavePlayerStat();
+    }
+
+    public void SavePlayerStat()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "playerStat.json");
+
+        string json = JsonConvert.SerializeObject(playerStat, Formatting.Indented);
+
+        File.WriteAllText(path, json);
+        Debug.Log($"PlayerStat의 JSON 저장 : [{path}]");
     }
 
     public void EditPlayerStat(PlayerStatOperator op, int value)
@@ -46,6 +85,7 @@ public class DataManager : MonoBehaviour
                 playerStat.DamagePerc -= value;
                 break;
         }
+        SavePlayerStat();
     }
 }
 
@@ -60,20 +100,22 @@ public enum PlayerStatOperator
     DamagePercPlus,
     DamagePercMinus,
 }
+[Serializable]
 public class PlayerStat
 {
-    public int HealthBase { get; set; }
-    public int DamageBase { get; set; }
-    public int HealthPlus { get; set; }
-    public int DamagePlus { get; set; }
-    public int HealthPerc { get; set; }
-    public int DamagePerc { get; set; }
+    public int HealthBase;
+    public int DamageBase;
+    public int HealthPlus;
+    public int DamagePlus;
+    public int HealthPerc;
+    public int DamagePerc;
 }
+[Serializable]
 public class PlayerDynamicStat
 {
-    public int MaxHealth { get; set; }
-    public int Health { get; set; }
-    public int Gem { get; set; }
+    public int MaxHealth;
+    public int Health;
+    public int Gem;
     //public Dictionary<string, Dictionary<string, int>> Skills { get; set; } // { 이름: { 'level':int, 'sp1':false, 'sp2':false, 'sp3':false } }
     public SkillDynamic SkillDynamic { get; set; }
 }
@@ -97,4 +139,31 @@ public class MonsterStat
 {
     public int HealthBase { get; set; }
     public int DamageBase { get; set; }
+}
+
+public class BattleItem
+{
+    public string Name;
+    public string Description;
+
+    public ElementType Element;
+    public WeaponType Weapon;
+}
+
+public enum ElementType
+{
+    None,
+    Fire,
+    Water,
+    Wind,
+    Earth,
+}
+public enum WeaponType
+{
+    None,
+    Sword,
+    Bow,
+    Gear,
+    Bird,
+    Laser,
 }

@@ -9,9 +9,9 @@ public class Player : MonoBehaviour
 {
     private HashSet<Collider2D> enemieCollisions = new HashSet<Collider2D>();
 
-    public float maxHealth = 1000f;
-    public float health = 1000f;
-    public float attackPower = 20f;
+    public float maxHealth;
+    public float health;
+    public float damage;
     public bool isInCombat = false;
     public Slider hpSlider;
     public TextMeshProUGUI hpText;
@@ -20,7 +20,13 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        maxHealth = (int)((Game.Data.playerStat.HealthBase + Game.Data.playerStat.HealthPlus) * ((float)Game.Data.playerStat.HealthPerc / 100f));
+        damage = (int)((Game.Data.playerStat.DamageBase + Game.Data.playerStat.DamagePlus) * ((float)Game.Data.playerStat.DamagePerc / 100f));
+
+        health = maxHealth;
+
         playerColliderY = GetComponent<CapsuleCollider2D>().size.y;
+
         hpText.text = health.ToString("F0");
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,7 +41,7 @@ public class Player : MonoBehaviour
                 enemieCollisions.Add(collision);
 
                 Game.Battle.gameState = GameState.Stop;
-                Debug.Log("Enemy Entered, GameState: Stop");
+                Debug.Log("적 접촉, GameState: Stop");
             }
         }
         if (collision.transform.CompareTag("EventLine"))
@@ -53,7 +59,6 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision);
         if (collision.transform.CompareTag("Enemy"))
         {
             if (!enemieCollisions.Contains(collision))
@@ -63,7 +68,7 @@ public class Player : MonoBehaviour
             if (collision.transform.GetComponent<Monster>().AttackDelay <= 0)
             {
                 collision.transform.GetComponent<Monster>().PerformAttack();
-                collision.transform.GetComponent<Monster>().TakeDamage(attackPower);
+                collision.transform.GetComponent<Monster>().TakeDamage(damage);
             }
         }
     }
@@ -77,7 +82,7 @@ public class Player : MonoBehaviour
             if (enemieCollisions.Count == 0)
             {
                 Game.Battle.gameState = GameState.Move;  // 더 이상 적과 충돌이 없으면 Move 상태로 변경
-                Debug.Log("All Enemies Exited, GameState: Move");
+                Debug.Log("접촉 적 없음, GameState: Move");
             }
         }
     }

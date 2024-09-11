@@ -19,7 +19,7 @@ public class BattleSceneManager : MonoBehaviour
 
     public float mapSpeed = 4f;
 
-    private float spawnLinePivotY = 10.0f;
+    public float spawnLinePivotY = 10.0f;
 
     public int nowLine = 0;
 
@@ -28,24 +28,32 @@ public class BattleSceneManager : MonoBehaviour
 
     public GameState gameState;
 
-    private void Start()
+    public void InitSetting()
     {
         gameState = GameState.Move;
+        StartCoroutine(UpdateOnBattleScene());
     }
-
-    private void Update()
+    public void CancelUpdate()
     {
-        switch (gameState)
+        StopCoroutine(UpdateOnBattleScene());
+    }
+    IEnumerator UpdateOnBattleScene()
+    {
+        while(true)
         {
-            case GameState.Move:
-                MoveMonstersAndMap();
-                break;
-            case GameState.Stop:
-                break;
-            case GameState.Event:
-                break;
-            case GameState.Clear:
-                break;
+            switch (gameState)
+            {
+                case GameState.Move:
+                    MoveMonstersAndMap();
+                    break;
+                case GameState.Stop:
+                    break;
+                case GameState.Event:
+                    break;
+                case GameState.Clear:
+                    break;
+            }
+            yield return null;
         }
     }
 

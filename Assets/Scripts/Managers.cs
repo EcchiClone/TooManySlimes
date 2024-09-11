@@ -4,8 +4,9 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     public static Managers Instance;
-    public BattleSceneManager Battle;
     public DataManager Data;
+    public LobbySceneManager Lobby;
+    public BattleSceneManager Battle;
 
     private void Awake()
     {
@@ -16,7 +17,12 @@ public class Managers : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        Instance.Battle = Instance.GetComponent<BattleSceneManager>();
+
         Instance.Data = Instance.GetComponent<DataManager>();
+        Instance.Lobby = Instance.GetComponent<LobbySceneManager>();
+        Instance.Battle = Instance.GetComponent<BattleSceneManager>();
+
+        Instance.Data.InitSetting();
+
     }
 }
