@@ -5,6 +5,7 @@ public class Managers : MonoBehaviour
 {
     public static Managers Instance;
     public BattleSceneManager Battle;
+    public DataManager Data;
 
     private void Awake()
     {
@@ -16,5 +17,6 @@ public class Managers : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         Instance.Battle = Instance.GetComponent<BattleSceneManager>();
+        Instance.Data = Instance.GetComponent<DataManager>();
     }
 }
