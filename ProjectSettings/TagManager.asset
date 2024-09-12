@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - EventLine
+  - Gem
   layers:
   - Default
   - TransparentFX
@@ -13,10 +14,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Weapon
+  - Enemy
+  - Structure
   - 
   - 
   - 

@@ -15,9 +15,7 @@ public class Monster : MonoBehaviour
     private float lerpSpeed = 8f;
     public float AttackDelay;
 
-    private void Awake()
-    {
-    }
+
     private void Start()
     {
         hp = maxHp;

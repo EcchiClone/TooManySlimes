@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 public class Utils
 {
@@ -30,4 +31,15 @@ public class Utils
 
         return chosenNumbers;
     }
+
+    public static BattleItem PickRandomWeaponItem()
+    {
+        BattleItem item = new BattleItem();
+        WeaponType[] allWeaponType = (WeaponType[])Enum.GetValues(typeof(WeaponType));
+        item.Weapon = allWeaponType[UnityEngine.Random.Range(1, allWeaponType.Length)];
+        ElementType[] allElementType = (ElementType[])Enum.GetValues(typeof(ElementType));
+        item.Element = allElementType[UnityEngine.Random.Range(1, allElementType.Length)];
+        return item;
+    }
+
 }

@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public PlayerWeapon playerWeapon;
+    public List<BattleItem> playerBattleItems;
+
     private HashSet<Collider2D> enemieCollisions = new HashSet<Collider2D>();
 
     public int maxHp;
@@ -15,12 +18,9 @@ public class Player : MonoBehaviour
 
     public int gem;
 
-    public Dictionary<WeaponType, Dictionary<ElementType, int>> weapons;
-
     public bool isInCombat = false;
     public Slider hpSlider;
     public TextMeshProUGUI hpText;
-    public TextMeshProUGUI gemText;
 
     private float playerColliderY;
 
@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
         gem = 0;
 
         playerColliderY = GetComponent<CapsuleCollider2D>().size.y;
+
+        playerWeapon.InitializeWeapons();
+        playerBattleItems = new List<BattleItem>();
 
         UpdateDisplay();
     }
@@ -61,6 +64,11 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("오른쪽 선택");
             }
+        }
+        if (collision.tag == "Gem")
+        {
+            AddGem(1);
+            Destroy(collision.gameObject);
         }
     }
 
@@ -125,16 +133,17 @@ public class Player : MonoBehaviour
         gem -= value;
         UpdateDisplay();
     }
-    public void GetWeapon(WeaponType weapon, ElementType element)
+    public void GetBattleItem(BattleItem item)
     {
-        weapons[weapon][element] += 1;
+        if(item.Weapon!=WeaponType.None)
+            playerWeapon.AddWeapon(item.Weapon, item.Element);
+        playerBattleItems.Add(item);
     }
-
     void UpdateDisplay()
     {
         hpSlider.value = (float)hp / (float)maxHp;
         hpText.text = hp.ToString("F0");
-        //gemText.text = gem.ToString(); // 젬 표시
+        Game.Battle.gemText.text = gem.ToString();
 
     }
 }

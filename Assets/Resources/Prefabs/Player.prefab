@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3901472270916516195}
   - component: {fileID: 6221944316393047346}
   - component: {fileID: 7415402759462512858}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,8 @@ GameObject:
   - component: {fileID: 54862998551298008}
   - component: {fileID: 1499047652808038673}
   - component: {fileID: 2717523512058266684}
-  m_Layer: 0
+  - component: {fileID: 2563813068022682224}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -152,9 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1930eb0511788294fac35f5c5f72c68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1000
-  health: 1000
-  attackPower: 20
+  playerWeapon: {fileID: 2563813068022682224}
+  maxHp: 0
+  hp: 0
+  damage: 0
+  gem: 0
   isInCombat: 0
   hpSlider: {fileID: 5371375270857837685}
   hpText: {fileID: 4912342370029941803}
@@ -217,7 +220,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 6
 --- !u!114 &2717523512058266684
@@ -233,6 +236,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 1499047652808038673}
+--- !u!114 &2563813068022682224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2650630304611326509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7864bdb1e69cc824daec7f1952226656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3688804707343883351
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +259,7 @@ GameObject:
   - component: {fileID: 2300109918593137415}
   - component: {fileID: 7724314267011012659}
   - component: {fileID: 5803818647203612634}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +333,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73618854031812738}
   - component: {fileID: 3838614335995855498}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +395,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: 798c72b52ea1adf4b84be70901bfd09d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -401,7 +416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4921871684950797756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +454,7 @@ GameObject:
   - component: {fileID: 9131051946838169560}
   - component: {fileID: 6465520865078864599}
   - component: {fileID: 3205060068794021926}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +527,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1156164146283323269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -550,7 +565,7 @@ GameObject:
   - component: {fileID: 5377847805190162096}
   - component: {fileID: 3624408103582876380}
   - component: {fileID: 6547825348366306651}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -624,7 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4963643500170393353}
   - component: {fileID: 5371375270857837685}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HpSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +730,7 @@ GameObject:
   - component: {fileID: 3543937433156923876}
   - component: {fileID: 5368249826951940410}
   - component: {fileID: 4912342370029941803}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}

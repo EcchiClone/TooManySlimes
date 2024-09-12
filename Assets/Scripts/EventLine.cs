@@ -11,12 +11,8 @@ public class EventLine : MonoBehaviour
     public SpriteRenderer[] itemSprites;
     public SpriteRenderer[] weaponSprites;
     public TextMeshProUGUI[] itemTexts;
+    public BattleItem lineBattleItem;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Player"))
-            Debug.Log("오오..");
-    }
 
     private void OnEnable()
     {
@@ -46,9 +42,14 @@ public class EventLine : MonoBehaviour
     }
     private void InitBattleItem(int i)
     {
-        string spritePath = "Images/BattleItemExample";
-        itemSprites[i].sprite = Resources.Load<Sprite>(spritePath);
-        itemTexts[i].text = "BattleItem";
+        lineBattleItem = Utils.PickRandomWeaponItem();
+
+        string weaponSpritePath = $"Images/{lineBattleItem.Weapon.ToString().ToLower()}";
+        string elementSpritePath = $"Images/{lineBattleItem.Element.ToString().ToLower()}_outer";
+
+        itemSprites[i].sprite = Resources.Load<Sprite>(elementSpritePath);
+        weaponSprites[i].sprite = Resources.Load<Sprite>(weaponSpritePath);
+        itemTexts[i].text = $"{lineBattleItem.Element.ToString()} {lineBattleItem.Weapon.ToString()}";
     }
     private void InitShop(int i)
     {
@@ -98,6 +99,7 @@ public class EventLine : MonoBehaviour
     }
     private void SelectBattleItem()
     {
+        Game.Battle.player.GetBattleItem(lineBattleItem);
         Debug.Log("SelectBattleItem");
     }
     private void SelectShop()
@@ -115,6 +117,7 @@ public class EventLine : MonoBehaviour
     }
     private void SelectGem()
     {
+        Game.Battle.player.AddGem(15);
         Debug.Log("SelectGem");
     }
 

@@ -8,10 +8,18 @@ public class DataManager : MonoBehaviour
 {
     public PlayerStat playerStat;
     public MonsterStat slimeStat;
+    public List<string> specialSkills;
 
     public void InitSetting()
     {
         InitPlayerStat();
+        specialSkills = new List<string>()
+        {
+            "스페셜1",
+            "스페셜2",
+            "스페셜3",
+            "스페셜4",
+        };
     }
 
     private void InitPlayerStat()
@@ -148,6 +156,8 @@ public class BattleItem
 
     public ElementType Element;
     public WeaponType Weapon;
+
+    public int price;
 }
 
 public enum ElementType

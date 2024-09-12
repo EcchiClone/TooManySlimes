@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneInitializerBattleScene : MonoBehaviour
 {
@@ -13,6 +15,14 @@ public class SceneInitializerBattleScene : MonoBehaviour
     public GameObject monsterPrefab;
     public GameObject monstersParent;
     public GameObject eventLinePrefab;
+
+    public GameObject gemPrefab;
+    public GameObject gemParent;
+
+    public GameObject meterImage;
+    public TextMeshProUGUI meterText;
+    public Image meterBar;
+    public TextMeshProUGUI gemText;
 
     void Awake()
     {
@@ -28,6 +38,12 @@ public class SceneInitializerBattleScene : MonoBehaviour
         Game.Battle.monsterPrefab = monsterPrefab;
         Game.Battle.monstersParent = monstersParent;
         Game.Battle.eventLinePrefab = eventLinePrefab;
+        Game.Battle.gemPrefab = gemPrefab;
+        Game.Battle.gemParent = gemParent;
+        Game.Battle.meterImage = meterImage;
+        Game.Battle.meterText = meterText;
+        Game.Battle.meterBar = meterBar;
+        Game.Battle.gemText = gemText;
         Game.Battle.mapSpeed = 4f;
         Game.Battle.spawnLinePivotY = 10.0f;
         Game.Battle.nowLine = 0;
