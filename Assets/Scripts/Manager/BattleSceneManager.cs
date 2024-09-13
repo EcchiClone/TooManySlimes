@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum GameState { Move, Stop, Pause, Clear }
+public enum GameState { Move, Stop, Pause, Clear, Fail }
 
 public class BattleSceneManager : MonoBehaviour
 {
@@ -15,9 +16,10 @@ public class BattleSceneManager : MonoBehaviour
     public List<GameObject> entities;
     public LoopBackground loopBackground;
 
-    public GameObject monsterPrefab;
+    public GameObject[] monsterPrefabs;
     public GameObject monstersParent;
     public GameObject eventLinePrefab;
+    public GameObject[] trapPrefabs;
 
     public GameObject bossPrefab;
 
@@ -31,17 +33,24 @@ public class BattleSceneManager : MonoBehaviour
 
     public ShopMenu shop;
     public PauseMenu pause;
-    public GameObject ResultCanvas;
+    public ResultMenu result;
 
     public Button pauseButton;
 
+    private float baseMapSpeed = 4f;
     public float mapSpeed = 4f;
+    public GameObject fastEffect;
 
     public float spawnLinePivotY = 10.0f;
 
     public int nowLine = 0;
+    public int maxLine = 450;
 
     private float blockSize = 0.9f;
+
+    private bool isEnd;
+    private bool fastNow;
+
 
 
     public GameState gameState;
@@ -50,30 +59,24 @@ public class BattleSceneManager : MonoBehaviour
 
     public void InitSetting()
     {
+        isEnd = false;
+        fastNow = false;
+        mapSpeed = baseMapSpeed;
         pauseButton.onClick.AddListener(OpenPause);
         gameState = GameState.Move;
-        if (battleCoroutine == null)
-        {
-            battleCoroutine = StartCoroutine(UpdateOnBattleScene());
-        }
+        battleCoroutine = StartCoroutine(UpdateOnBattleScene());
         ProgressDisplayUpdate();
-    }
-    public void CancelUpdate()
-    {
-        if (battleCoroutine != null)
-        {
-            StopCoroutine(battleCoroutine);
-            battleCoroutine = null;
-        }
     }
     IEnumerator UpdateOnBattleScene()
     {
-        while(true)
+        while(SceneManager.GetActiveScene().name == "BattleScene")
         {
+            Debug.Log("UpdateOnBattleScene");
             switch (gameState)
             {
                 case GameState.Move:
-                    MoveMonstersAndMap();
+                    if(!isEnd)
+                        MoveMonstersAndMap();
                     break;
                 case GameState.Stop:
                     break;
@@ -89,7 +92,7 @@ public class BattleSceneManager : MonoBehaviour
     // 하강 처리
     private void MoveMonstersAndMap()
     {
-        if (gameState == GameState.Move)
+        if (gameState == GameState.Move || gameState == GameState.Clear)
         {
             // 맵 이동
             if(loopBackground != null)
@@ -129,11 +132,11 @@ public class BattleSceneManager : MonoBehaviour
         if(nowLine == 0)
         {
         }
-        else if (nowLine % 150 == 0)
+        else if ((nowLine+2) % 150 == 0)
         {
             SpawnBoss();
         }
-        else if (nowLine % 6 == 0)
+        else if ((nowLine + 2) % 15 == 0)
         {
             SpawnEventLine();
         }
@@ -143,6 +146,7 @@ public class BattleSceneManager : MonoBehaviour
         }
         nowLine += 1;
         ProgressDisplayUpdate();
+        if (nowLine >= 450) GameClear();
     }
     void SpawnBoss()
     {
@@ -150,7 +154,7 @@ public class BattleSceneManager : MonoBehaviour
         GameObject bossObj = Instantiate(bossPrefab, spawnPosition+Vector3.up * 5f, Quaternion.identity, monstersParent.transform);
         monsters.Add(bossObj.GetComponent<Monster>());
 
-        spawnLinePivotY += blockSize*10;
+        spawnLinePivotY += blockSize*20;
     }
     void SpawnEventLine()
     {
@@ -190,21 +194,27 @@ public class BattleSceneManager : MonoBehaviour
 
         spawnLinePivotY += blockSize;
     }
-    void SpawnGeneralMonster(int i, bool canSpawnGem)
+    void SpawnGeneralMonster(int i, bool canSpawnGemAndTrap)
     {
-        if (canSpawnGem)
+        if (canSpawnGemAndTrap)
         {
             float genCase = Random.Range(0f, 1f);
-            if (genCase < 0.5f)
+            if (genCase < 0.3f) // 30% 확률로 몬스터 대신 Gem
             {
                 Vector3 spawnPosition = new Vector3(i * blockSize - 1.8f, spawnLinePivotY, 0);
                 GameObject newGemObj = Instantiate(gemPrefab, spawnPosition, Quaternion.identity, gemParent.transform);
                 entities.Add(newGemObj);
             }
+            else if (genCase < 0.4f) // 10% 확률로 트랩
+            {
+                Vector3 spawnPosition = new Vector3(i * blockSize - 1.8f, spawnLinePivotY, 0);
+                GameObject newTrapObj = Instantiate(trapPrefabs[Random.Range(0, trapPrefabs.Length)], spawnPosition, Quaternion.identity, gemParent.transform);
+                entities.Add(newTrapObj);
+            }
             else
             {
                 Vector3 spawnPosition = new Vector3(i * blockSize - 1.8f, spawnLinePivotY, 0);
-                GameObject newMonsterObj = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity, monstersParent.transform);
+                GameObject newMonsterObj = Instantiate(monsterPrefabs[Random.Range(0,monsterPrefabs.Length)], spawnPosition, Quaternion.identity, monstersParent.transform);
                 Monster newMonster = newMonsterObj.GetComponent<Monster>();
                 monsters.Add(newMonster);
             }
@@ -212,7 +222,7 @@ public class BattleSceneManager : MonoBehaviour
         else
         {
             Vector3 spawnPosition = new Vector3(i * blockSize - 1.8f, spawnLinePivotY, 0);
-            GameObject newMonsterObj = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity, monstersParent.transform);
+            GameObject newMonsterObj = Instantiate(monsterPrefabs[Random.Range(0, monsterPrefabs.Length)], spawnPosition, Quaternion.identity, monstersParent.transform);
             Monster newMonster = newMonsterObj.GetComponent<Monster>();
             monsters.Add(newMonster);
         }
@@ -220,8 +230,8 @@ public class BattleSceneManager : MonoBehaviour
     
     public void ProgressDisplayUpdate()
     {
-        meterBar.fillAmount = (float)nowLine / 450f;
-        meterText.text = $"{nowLine}m";
+        meterBar.fillAmount = (float)nowLine / (float)maxLine;
+        meterText.text = $"{Mathf.Min(nowLine,maxLine)}m"; // 카운트는 maxLine까지로 강제
 
         // MeterBar의 높이를 기준으로 fillAmount 값에 맞춰 meterImage의 y 위치 설정
         RectTransform meterBarRect = meterBar.GetComponent<RectTransform>();
@@ -256,4 +266,58 @@ public class BattleSceneManager : MonoBehaviour
         SceneManager.LoadScene(Game.Data.loadingSceneName);
         LoadingSceneManager.sceneToLoad = Game.Data.lobbySceneName;
     }
+    public void GameClear()
+    {
+        isEnd = true;
+        Game.Battle.gameState = GameState.Clear;
+        StartCoroutine(DelayedShowResult());
+    }
+    public void GameFail()
+    {
+        isEnd = true;
+        Game.Battle.gameState = GameState.Fail;
+        StartCoroutine(DelayedShowResult());
+    }
+    private IEnumerator DelayedShowResult()
+    {
+        yield return new WaitForSeconds(1f);
+        ShowResult();
+    }
+    public void ShowResult()
+    {
+        result.InitializeResult();
+    }
+    private Coroutine fastCoroutine;
+    public void FasterTrap() // 새로운 함정
+    {
+        if(fastNow)
+            StopCoroutine(fastCoroutine);
+        fastCoroutine = StartCoroutine(FasterTrapRoutine());
+    }
+    IEnumerator FasterTrapRoutine()
+    {
+        fastNow = true;
+        fastEffect.SetActive(true);
+        mapSpeed = baseMapSpeed * 1.5f;
+        float timer = 10f;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+        fastEffect.SetActive(false);
+        float lerpDuration = 3f;
+        float elapsedTime = 0f;
+        float startSpeed = mapSpeed;
+        while (elapsedTime < lerpDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            mapSpeed = Mathf.Lerp(mapSpeed, baseMapSpeed, elapsedTime / lerpDuration);
+            yield return null;
+        }
+        mapSpeed = baseMapSpeed;
+        fastNow = false;
+    }
+
+
 }

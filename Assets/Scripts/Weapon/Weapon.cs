@@ -32,7 +32,6 @@ public abstract class Weapon : MonoBehaviour
         foreach (ElementType element in System.Enum.GetValues(typeof(ElementType)))
         {
             elements[element] = 0;
-            print("element");
         }
 
         setActive();

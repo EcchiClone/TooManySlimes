@@ -12,6 +12,7 @@ public class Bow : Weapon
         base_damage = 30;
         base_delay = 1;
         base_amount = 1;
+        base_speed = 10;
     }
 
     public override IEnumerator WeaponRoutine()
@@ -30,7 +31,7 @@ public class Bow : Weapon
 
                     GameObject arrow = Instantiate(arrowPrefab, Game.Battle.player.transform.position, Quaternion.identity);
                     arrow.GetComponent<Projectile>().damage = damage;
-                    arrow.GetComponent<Rigidbody2D>().velocity = direction * 10f;
+                    arrow.GetComponent<Rigidbody2D>().velocity = direction * speed;
                 }
             }
 
@@ -43,5 +44,6 @@ public class Bow : Weapon
         damage = (int)(base_damage * (100 + (float)elements[ElementType.Fire] * 30) / 100f);
         delay = base_delay / ( (100 + (float)elements[ElementType.Wind] * 30) / 100f );
         amount = base_amount + elements[ElementType.Water];
+        speed = base_speed + Mathf.Min((elements[ElementType.Earth] * 2),10f);
     }
 }

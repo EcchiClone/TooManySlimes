@@ -23,6 +23,5 @@ public class Managers : MonoBehaviour
         Instance.Battle = Instance.GetComponent<BattleSceneManager>();
 
         Instance.Data.InitSetting();
-
     }
 }

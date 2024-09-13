@@ -12,9 +12,10 @@ public class SceneInitializerBattleScene : MonoBehaviour
     public List<GameObject> entities;
     public LoopBackground loopBackground;
 
-    public GameObject monsterPrefab;
+    public GameObject[] monsterPrefabs;
     public GameObject monstersParent;
     public GameObject eventLinePrefab;
+    public GameObject[] trapPrefabs;
 
     public GameObject bossPrefab;
 
@@ -28,9 +29,10 @@ public class SceneInitializerBattleScene : MonoBehaviour
 
     public ShopMenu shop;
     public PauseMenu pause;
-    public GameObject ResultCanvas;
+    public ResultMenu result;
 
     public Button pauseButton;
+    public GameObject fastEffect;
 
     void Awake()
     {
@@ -43,9 +45,10 @@ public class SceneInitializerBattleScene : MonoBehaviour
         Game.Battle.monsters = monsters;
         Game.Battle.entities = entities;
         Game.Battle.loopBackground = loopBackground;
-        Game.Battle.monsterPrefab = monsterPrefab;
+        Game.Battle.monsterPrefabs = monsterPrefabs;
         Game.Battle.monstersParent = monstersParent;
         Game.Battle.eventLinePrefab = eventLinePrefab;
+        Game.Battle.trapPrefabs = trapPrefabs;
         Game.Battle.bossPrefab = bossPrefab;
         Game.Battle.gemPrefab = gemPrefab;
         Game.Battle.gemParent = gemParent;
@@ -55,8 +58,9 @@ public class SceneInitializerBattleScene : MonoBehaviour
         Game.Battle.gemText = gemText;
         Game.Battle.shop = shop;
         Game.Battle.pause = pause;
-        Game.Battle.ResultCanvas = ResultCanvas;
+        Game.Battle.result = result;
         Game.Battle.pauseButton = pauseButton;
+        Game.Battle.fastEffect = fastEffect;
         Game.Battle.mapSpeed = 4f;
         Game.Battle.spawnLinePivotY = 10.0f;
         Game.Battle.nowLine = 0;

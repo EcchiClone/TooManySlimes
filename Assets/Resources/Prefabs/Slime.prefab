@@ -745,6 +745,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gemPrefab: {fileID: 5721379260875241124, guid: 4124b5d4af235794980dea4b979c9bf4, type: 3}
   maxHp: 50
-  damage: 10
+  damage: 5
   HpSlider: {fileID: 7646295807577884587}
   AttackDelay: 0

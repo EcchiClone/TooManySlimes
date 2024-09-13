@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         }
         if (collision.tag == "Gem")
         {
-            if(collision.TryGetComponent(out DropedObject obj))
+            if (collision.TryGetComponent(out DropedObject obj))
             {
                 if (obj.canGet)
                 {
@@ -79,6 +79,24 @@ public class Player : MonoBehaviour
             {
                 AddGem(1);
                 Destroy(collision.gameObject);
+            }
+        }
+        if (collision.tag == "Trap")
+        {
+            Debug.Log("collision.tag trap");
+            if (collision.TryGetComponent(out Trap trap))
+            {
+                Debug.Log("TryGetComponent");
+                if (trap.Type==TrapType.Damager)
+                {
+                    Debug.Log("Damager");
+                    TakeDamage(trap.Damage);
+                }
+                if (trap.Type == TrapType.Faster)
+                {
+                    Debug.Log("Faster");
+                    Game.Battle.FasterTrap();
+                }
             }
         }
     }
@@ -142,7 +160,8 @@ public class Player : MonoBehaviour
     void Die()
     {
         isInCombat = false;
-        Destroy(gameObject);
+        Game.Battle.GameFail();
+        gameObject.SetActive(false);
     }
 
     public void Heal(int value)
