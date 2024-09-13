@@ -42,10 +42,6 @@ public class Utils
         item.Element = allElementType[UnityEngine.Random.Range(1, allElementType.Length)];
 
         item.Name = $"{item.Element}의 {item.Weapon}";
-        switch (item.Element)
-        {
-
-        }
         Dictionary<ElementType, string> map = new Dictionary<ElementType, string>() // 임시 작성
             {
                 { ElementType.Fire, "데미지 증가" },
@@ -61,6 +57,33 @@ public class Utils
         item.innerSpritePath = $"Images/{item.Weapon.ToString().ToLower()}"; // sword, bow, ...
 
         return item;
+    }
+
+    public static (Dictionary<WeaponType,int>, Dictionary<ElementType, int>) CountAllBattleItemType(Player player)
+    {
+        Dictionary<WeaponType, int> weaponCount = new Dictionary<WeaponType, int>();
+        Dictionary<ElementType, int> elementCount = new Dictionary<ElementType, int>();
+
+        WeaponType[] allWeaponType = (WeaponType[])Enum.GetValues(typeof(WeaponType));
+        ElementType[] allElementType = (ElementType[])Enum.GetValues(typeof(ElementType));
+
+        for (int i = 1; i < allWeaponType.Length; i++)
+            weaponCount[allWeaponType[i]] = 0;
+
+        for (int j = 1; j < allElementType.Length; j++)
+            elementCount[allElementType[j]] = 0;
+
+        for (int i = 1; i < allWeaponType.Length; i++)
+        {
+            for (int j = 1; j < allElementType.Length; j++)
+            {
+                int value = player.playerWeapon.weapons[allWeaponType[i]].elements[allElementType[j]];
+                weaponCount[allWeaponType[i]] += value;
+                elementCount[allElementType[j]] += value;
+            }
+        }
+
+        return (weaponCount, elementCount);
     }
 
 }

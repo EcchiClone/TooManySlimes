@@ -6,6 +6,10 @@ using System;
 
 public class DataManager : MonoBehaviour
 {
+    public string lobbySceneName = "LobbyScene";
+    public string loadingSceneName = "LoadingScene";
+    public string battleSceneName = "BattleScene";
+
     public PlayerStat playerStat;
     public MonsterStat slimeStat;
     public List<string> specialSkills;

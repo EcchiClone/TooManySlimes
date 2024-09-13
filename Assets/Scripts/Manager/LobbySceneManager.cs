@@ -7,9 +7,6 @@ using UnityEngine.UI;
 
 public class LobbySceneManager : MonoBehaviour
 {
-    public string loadingSceneName = "LoadingScene";
-    public string battleSceneName = "BattleScene";
-
     public Button GameStartButton;
 
     public Button HpUpButton;
@@ -32,8 +29,8 @@ public class LobbySceneManager : MonoBehaviour
     }
     public void GameStartButtonClicked()
     {
-        SceneManager.LoadScene(loadingSceneName);
-        LoadingSceneManager.sceneToLoad = battleSceneName;
+        SceneManager.LoadScene(Game.Data.loadingSceneName);
+        LoadingSceneManager.sceneToLoad = Game.Data.battleSceneName;
     }
     public void HpUpButtonClicked()
     {

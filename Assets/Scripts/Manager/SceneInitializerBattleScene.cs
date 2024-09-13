@@ -27,8 +27,10 @@ public class SceneInitializerBattleScene : MonoBehaviour
     public TextMeshProUGUI gemText;
 
     public ShopMenu shop;
-    public GameObject pauseCanvas;
+    public PauseMenu pause;
     public GameObject ResultCanvas;
+
+    public Button pauseButton;
 
     void Awake()
     {
@@ -52,8 +54,9 @@ public class SceneInitializerBattleScene : MonoBehaviour
         Game.Battle.meterBar = meterBar;
         Game.Battle.gemText = gemText;
         Game.Battle.shop = shop;
-        Game.Battle.pauseCanvas = pauseCanvas;
+        Game.Battle.pause = pause;
         Game.Battle.ResultCanvas = ResultCanvas;
+        Game.Battle.pauseButton = pauseButton;
         Game.Battle.mapSpeed = 4f;
         Game.Battle.spawnLinePivotY = 10.0f;
         Game.Battle.nowLine = 0;
@@ -61,7 +64,8 @@ public class SceneInitializerBattleScene : MonoBehaviour
     }
     private void OnDisable()
     {
-        Game.Battle.CancelUpdate();
+        // 제대로 작동하지 않아 주석처리
+        //Game.Battle.CancelUpdate();
     }
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum GameState { Move, Stop, Pause, Clear }
@@ -29,8 +30,10 @@ public class BattleSceneManager : MonoBehaviour
     public TextMeshProUGUI gemText;
 
     public ShopMenu shop;
-    public GameObject pauseCanvas;
+    public PauseMenu pause;
     public GameObject ResultCanvas;
+
+    public Button pauseButton;
 
     public float mapSpeed = 4f;
 
@@ -43,15 +46,25 @@ public class BattleSceneManager : MonoBehaviour
 
     public GameState gameState;
 
+    private Coroutine battleCoroutine;
+
     public void InitSetting()
     {
+        pauseButton.onClick.AddListener(OpenPause);
         gameState = GameState.Move;
-        StartCoroutine(UpdateOnBattleScene());
+        if (battleCoroutine == null)
+        {
+            battleCoroutine = StartCoroutine(UpdateOnBattleScene());
+        }
         ProgressDisplayUpdate();
     }
     public void CancelUpdate()
     {
-        StopCoroutine(UpdateOnBattleScene());
+        if (battleCoroutine != null)
+        {
+            StopCoroutine(battleCoroutine);
+            battleCoroutine = null;
+        }
     }
     IEnumerator UpdateOnBattleScene()
     {
@@ -229,5 +242,18 @@ public class BattleSceneManager : MonoBehaviour
     {
         Game.Battle.gameState = GameState.Move;
     }
-
+    public void OpenPause()
+    {
+        Game.Battle.gameState = GameState.Pause;
+        pause.InitializePause();
+    }
+    public void ClosePause()
+    {
+        Game.Battle.gameState = GameState.Move;
+    }
+    public void MoveToLobbyScene()
+    {
+        SceneManager.LoadScene(Game.Data.loadingSceneName);
+        LoadingSceneManager.sceneToLoad = Game.Data.lobbySceneName;
+    }
 }
