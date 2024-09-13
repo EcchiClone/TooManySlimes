@@ -35,10 +35,31 @@ public class Utils
     public static BattleItem PickRandomWeaponItem()
     {
         BattleItem item = new BattleItem();
+
         WeaponType[] allWeaponType = (WeaponType[])Enum.GetValues(typeof(WeaponType));
         item.Weapon = allWeaponType[UnityEngine.Random.Range(1, allWeaponType.Length)];
         ElementType[] allElementType = (ElementType[])Enum.GetValues(typeof(ElementType));
         item.Element = allElementType[UnityEngine.Random.Range(1, allElementType.Length)];
+
+        item.Name = $"{item.Element}의 {item.Weapon}";
+        switch (item.Element)
+        {
+
+        }
+        Dictionary<ElementType, string> map = new Dictionary<ElementType, string>() // 임시 작성
+            {
+                { ElementType.Fire, "데미지 증가" },
+                { ElementType.Water, "갯수 증가" },
+                { ElementType.Wind, "속도 증가" },
+                { ElementType.Earth, "특수능력 추가" },
+            };
+        item.Description = map[item.Element];
+
+        item.price = 5; // 임시 하드코딩 5원 고정
+
+        item.outerSpritePath = $"Images/{item.Element.ToString().ToLower()}_outer"; // fire_outer, water_outer, ...
+        item.innerSpritePath = $"Images/{item.Weapon.ToString().ToLower()}"; // sword, bow, ...
+
         return item;
     }
 

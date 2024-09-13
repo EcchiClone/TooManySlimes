@@ -43,13 +43,9 @@ public class EventLine : MonoBehaviour
     private void InitBattleItem(int i)
     {
         lineBattleItem = Utils.PickRandomWeaponItem();
-
-        string weaponSpritePath = $"Images/{lineBattleItem.Weapon.ToString().ToLower()}";
-        string elementSpritePath = $"Images/{lineBattleItem.Element.ToString().ToLower()}_outer";
-
-        itemSprites[i].sprite = Resources.Load<Sprite>(elementSpritePath);
-        weaponSprites[i].sprite = Resources.Load<Sprite>(weaponSpritePath);
-        itemTexts[i].text = $"{lineBattleItem.Element.ToString()} {lineBattleItem.Weapon.ToString()}";
+        itemSprites[i].sprite = Resources.Load<Sprite>(lineBattleItem.outerSpritePath);
+        weaponSprites[i].sprite = Resources.Load<Sprite>(lineBattleItem.innerSpritePath);
+        itemTexts[i].text = $"{lineBattleItem.Element} {lineBattleItem.Weapon}";
     }
     private void InitShop(int i)
     {
@@ -78,6 +74,10 @@ public class EventLine : MonoBehaviour
 
     public void EventLineTouch(int i)
     {
+        itemSprites[i].sprite = null;
+        weaponSprites[i].sprite = null;
+        itemTexts[i].text = "";
+
         switch (eventElements[i])
         {
             case EventLineType.BattleItem:
@@ -105,6 +105,7 @@ public class EventLine : MonoBehaviour
     private void SelectShop()
     {
         Debug.Log("SelectShop");
+        Game.Battle.OpenShop();
     }
     private void SelectEvent()
     {
@@ -112,13 +113,11 @@ public class EventLine : MonoBehaviour
     }
     private void SelectPotion()
     {
-        Debug.Log("SelectPotion");
         Game.Battle.player.Heal(100);
     }
     private void SelectGem()
     {
         Game.Battle.player.AddGem(15);
-        Debug.Log("SelectGem");
     }
 
     private void Update()

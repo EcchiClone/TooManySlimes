@@ -7,23 +7,28 @@ using UnityEngine.UI;
 
 public class Monster : MonoBehaviour
 {
+    public GameObject gemPrefab;
+
     public int maxHp = 50;
-    private int hp = 50;
     public int damage = 10;
+
     public Slider HpSlider;
+
+    private int hp;
+
     private float lerpedHp;
     private float lerpSpeed = 8f;
     public float AttackDelay;
 
 
-    private void Start()
+    public virtual void Start()
     {
         hp = maxHp;
         lerpedHp = hp;
     }
-    private void Update()
+    public virtual void Update()
     {
-        if (transform.position.y < -8f)
+        if (transform.position.y < -10f)
         {
             Disappear();
         }
@@ -57,8 +62,9 @@ public class Monster : MonoBehaviour
         }
     }
 
-    void Die()
+    public virtual void Die()
     {
+        DropGems();
         Game.Battle.monsters.Remove(this);
         gameObject.SetActive(false);
         Destroy(gameObject, 0.05f);
@@ -69,5 +75,14 @@ public class Monster : MonoBehaviour
         Game.Battle.monsters.Remove(this);
         gameObject.SetActive(false);
         Destroy(gameObject, 0.05f);
+    }
+    public virtual void DropGems()
+    {
+        float randFloat = Random.Range(0f, 1f);
+        if(randFloat < 0.4)
+        {
+            GameObject newGem = Instantiate(gemPrefab, gameObject.transform.position, Quaternion.identity);
+            newGem.AddComponent<DropedObject>();
+        }
     }
 }

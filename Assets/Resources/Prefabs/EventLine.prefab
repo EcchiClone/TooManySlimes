@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4763042274902019445}
   - component: {fileID: 5252490407965640606}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WallCollider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8135663758852187718}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ Transform:
   - {fileID: 4763042274902019445}
   - {fileID: 2774434428925426320}
   - {fileID: 3907944162062451465}
-  m_Father: {fileID: 8217396760922987122}
+  m_Father: {fileID: 4386036004872179621}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2371721315446793115
 GameObject:
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 5974603689464507323}
   - component: {fileID: 7530096096642421104}
   - component: {fileID: 8536266009019882803}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ItemText0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5142031441293199989}
   - component: {fileID: 3504283932341130784}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WeaponSprite1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -308,7 +308,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -8
+  m_SortingOrder: -7
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -332,7 +332,7 @@ GameObject:
   - component: {fileID: 8041663512171338506}
   - component: {fileID: 4437697449005759884}
   - component: {fileID: 5065450214567568105}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +352,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2513651777238812902}
-  m_Father: {fileID: 8217396760922987122}
+  m_Father: {fileID: 4386036004872179621}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -432,7 +432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1574532058246909081}
   - component: {fileID: 9010119628186739266}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1783906245697724634}
   - component: {fileID: 984301557348954973}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5942203208876411997}
   - component: {fileID: 3529006263513483370}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Floor0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,7 +684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7889156657137288093}
   - component: {fileID: 3864845522343776934}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WeaponSprite0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -8
+  m_SortingOrder: -7
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -768,7 +768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2847566802779646507}
   - component: {fileID: 5758224328766949331}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ItemSprite0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -852,7 +852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5430144864154991964}
   - component: {fileID: 5747530658381386094}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ItemSprite1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,7 +938,7 @@ GameObject:
   - component: {fileID: 8650773401888945696}
   - component: {fileID: 4515298793528646148}
   - component: {fileID: 8528339775905798858}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +958,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5974603689464507323}
-  m_Father: {fileID: 8217396760922987122}
+  m_Father: {fileID: 4386036004872179621}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1039,7 +1039,7 @@ GameObject:
   - component: {fileID: 2513651777238812902}
   - component: {fileID: 1186354029771324070}
   - component: {fileID: 7695055910483869523}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ItemText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1173,7 @@ GameObject:
   - component: {fileID: 3907944162062451465}
   - component: {fileID: 5696004060594051059}
   - component: {fileID: 8440194109507667864}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EventTriggerCollider
   m_TagString: EventLine
   m_Icon: {fileID: 0}
@@ -1262,7 +1262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6857511809677500676}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1289,7 +1289,7 @@ Transform:
   - {fileID: 5430144864154991964}
   - {fileID: 7889156657137288093}
   - {fileID: 5142031441293199989}
-  m_Father: {fileID: 8217396760922987122}
+  m_Father: {fileID: 4386036004872179621}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6290392296786014359
 GameObject:
@@ -1301,7 +1301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4386036004872179621}
   - component: {fileID: 1299986491728473101}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EventLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1321,7 +1321,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8217396760922987122}
+  - {fileID: 8217715296304270706}
+  - {fileID: 3195917794400006074}
+  - {fileID: 8135663758852187718}
+  - {fileID: 6857511809677500676}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1299986491728473101
@@ -1356,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4582570585492593480}
   - component: {fileID: 6387152327291481822}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WallCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1423,7 +1426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2774434428925426320}
   - component: {fileID: 8583665541550120972}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: WallCollider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1480,38 +1483,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.2, y: 0.9}
   m_Direction: 0
---- !u!1 &9170617533746385688
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8217396760922987122}
-  m_Layer: 9
-  m_Name: YOffset
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8217396760922987122
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9170617533746385688}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6857511809677500676}
-  - {fileID: 8135663758852187718}
-  - {fileID: 3195917794400006074}
-  - {fileID: 8217715296304270706}
-  m_Father: {fileID: 4386036004872179621}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
